@@ -12,8 +12,9 @@ public class GameMainLoop {
 
     GameMainLoop() {
         screenMap.put(ScreenSequence.MENU, new MenuScreen(this));
+        screenMap.put(ScreenSequence.GAMEPLAY, new MenuScreen(this));
 
-        screenSequence = ScreenSequence.MENU;
+        screenSequence = ScreenSequence.GAMEPLAY;
     }
 
     public void Run() {
