@@ -3,6 +3,7 @@ package baseball;
 import java.util.HashMap;
 
 import baseball.Domain.Screen.MenuScreen;
+import baseball.Domain.Screen.PlayScreen;
 import baseball.Domain.Screen.Screen;
 import baseball.Enum.ScreenSequence;
 
@@ -12,7 +13,7 @@ public class GameMainLoop {
 
     GameMainLoop() {
         screenMap.put(ScreenSequence.MENU, new MenuScreen(this));
-        screenMap.put(ScreenSequence.GAMEPLAY, new MenuScreen(this));
+        screenMap.put(ScreenSequence.GAMEPLAY, new PlayScreen(this));
 
         screenSequence = ScreenSequence.GAMEPLAY;
     }
