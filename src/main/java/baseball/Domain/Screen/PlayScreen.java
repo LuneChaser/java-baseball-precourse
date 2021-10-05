@@ -21,17 +21,19 @@ public class PlayScreen extends Screen {
     public void run() {
         final BallNumber aiBallNumber = aiPlayer.generateBallNumber();
 
-        while(play(aiBallNumber)) {
+        while(isPlay(aiBallNumber)) {
         }
     }
 
-    private boolean play(BallNumber defenderNumber) {
-        BallNumber userNumber = userPlayer.generateBallNumber();
+    private boolean isPlay(BallNumber defenderNumber) {
+        BallNumber attackerNumber = userPlayer.generateBallNumber();
 
-        int strikeCount = getStrikeCount(defenderNumber, userNumber);
-        int ballCount = getBallCount(defenderNumber, userNumber);
+        int strikeCount = getStrikeCount(defenderNumber, attackerNumber);
+        int ballCount = getBallCount(defenderNumber, attackerNumber);
 
-        if(isComplete(strikeCount, ballCount)) {
+        renderResult(strikeCount, ballCount);
+
+        if(isWin(strikeCount)) {
             System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 끝");
             
             this.changeScreenSequence(ScreenSequence.MENU);
@@ -42,57 +44,52 @@ public class PlayScreen extends Screen {
         return true;
     }
 
-    private int getStrikeCount(BallNumber userNumber, BallNumber aiNumber) {
+    private int getStrikeCount(BallNumber defenderNumber, BallNumber attackerNumber) {
         int strikeCount = 0 ;
 
-        String tempUserNumber = userNumber.getNumber();
+        byte[] attackerNumberItems = attackerNumber.getNumber().getBytes();
 
-        for(int i = 0; i < tempUserNumber.getBytes().length; i++) {
-            strikeCount += checkStrike(tempUserNumber.getBytes()[i], i , aiNumber);
+        for(int i = 0; i < attackerNumberItems.length; i++) {
+            strikeCount += countStrike(attackerNumberItems[i], i , defenderNumber);
         }
 
         return strikeCount;
     }
 
-    private int checkStrike(byte attackerNumber, int checkIndex, BallNumber defenserNumber) {
-        String tempUserNumber = defenserNumber.getNumber();
-
-        if( tempUserNumber.getBytes()[checkIndex] == attackerNumber) {
+    private int countStrike(byte attackerNumber, int checkIndex, BallNumber defenserNumber) {
+        if(defenserNumber.getNumber().getBytes()[checkIndex] == attackerNumber) {
             return 1;
         }
 
         return 0;
     }
 
-    private int getBallCount(BallNumber userNumber, BallNumber aiNumber) {
+    private int getBallCount(BallNumber defenderNumber, BallNumber attackerNumber) {
         int ballCount = 0 ;
 
-        String tempUserNumber = userNumber.getNumber();
+        byte[] attackerNumberItems = attackerNumber.getNumber().getBytes();
 
-        for(int i = 0; i < tempUserNumber.getBytes().length; i++) {
-            ballCount += checkBall(tempUserNumber.getBytes()[i], i , aiNumber);
+        for(int i = 0; i < attackerNumberItems.length; i++) {
+            ballCount += countBall(attackerNumberItems[i], i , defenderNumber);
         }
 
         return ballCount;
     }
 
-    private int checkBall(byte attackerNumber, int checkIndex, BallNumber defenserNumber) {
+    private int countBall(byte attackerNumber, int checkIndex, BallNumber defenserNumber) {
         String tempUserNumber = defenserNumber.getNumber();
 
-        if(checkStrike(attackerNumber, checkIndex, defenserNumber) == 0 && tempUserNumber.indexOf(attackerNumber) > -1) {
+        if(countStrike(attackerNumber, checkIndex, defenserNumber) == 0 && tempUserNumber.indexOf(attackerNumber) > -1) {
             return 1;
         }
 
         return 0;
     }
 
-    private boolean isComplete(int strikeCount, int ballCount) {
-        if(strikeCount == 3) {
-            System.out.println(strikeCount + "스트라이크");
-            return true;
-        } else if(strikeCount < 1 && ballCount < 1) {
+    private void renderResult(int strikeCount, int ballCount) {
+        if(strikeCount < 1 && ballCount < 1) {
             System.out.println("낫싱");
-            return false;
+            return;
         }
 
         String printText = "";
@@ -101,6 +98,12 @@ public class PlayScreen extends Screen {
         printText += ballCount > 0 ? ballCount + "볼" : "";
 
         System.out.println(printText);
+    }
+
+    private boolean isWin(int strikeCount) {
+        if(strikeCount == 3) {
+            return true;
+        }
 
         return false;
     }
