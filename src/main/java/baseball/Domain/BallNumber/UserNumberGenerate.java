@@ -18,7 +18,7 @@ public class UserNumberGenerate implements NumberGenerate {
     }
 
     private void checkInputSize(String numbers) {
-        if(numbers.length() < 1 || numbers.length() > 3) {
+        if(numbers.length() != 3) {
             throw  new IllegalArgumentException("[ERROR] 사용자 입력값이 잘못되었습니다. - 3자리로 입력해주세요.");
         }
     }
