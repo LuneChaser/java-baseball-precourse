@@ -9,6 +9,7 @@ public class UserPlayer extends Player {
         BallNumber ballNumber = new BallNumber();
 
         System.out.println("숫자를 입력해주세요");
+
         return ballNumber.generate(new UserNumberGenerate());
     }
 }

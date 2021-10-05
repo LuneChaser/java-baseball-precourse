@@ -7,6 +7,7 @@ public class AiPlayer extends Player {
     @Override
     public BallNumber generateBallNumber() {
         BallNumber ballNumber = new BallNumber();
+
         return ballNumber.generate(new AiNumberGenerate());
     }
 }
