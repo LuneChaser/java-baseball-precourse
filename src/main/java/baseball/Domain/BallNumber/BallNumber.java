@@ -12,4 +12,8 @@ public class BallNumber {
 
         return this;
     }
+
+    public String getNumber() {
+        return number;
+    }
 }
