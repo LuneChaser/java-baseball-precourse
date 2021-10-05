@@ -37,7 +37,7 @@ public class PlayScreen extends Screen {
                 this.changeScreenSequence(ScreenSequence.MENU);
                 return false;
             }
-        } catch(Exception ex) {
+        } catch(IllegalArgumentException ex) {
             System.out.println(ex.getMessage());
         }
 
