@@ -82,7 +82,6 @@ public class ApplicationTest extends NSTest {
         }
     }
 
-    
     @Test
     void 스트라이크_1개_볼_2개() {
         try (final MockedStatic<Randoms> mockRandoms = mockStatic(Randoms.class)) {
@@ -91,6 +90,22 @@ public class ApplicationTest extends NSTest {
                     .thenReturn(1, 3, 5);
             running("153");
             verify("1스트라이크 2볼");
+        }
+    }
+
+    @Test
+    void 입력유효성검사_1자리만입력() {
+        try (final MockedStatic<Randoms> mockRandoms = null) {
+            running("3");
+            verify("[ERROR] 사용자 입력값이 잘못되었습니다. - 3자리로 입력해주세요.");
+        }
+    }
+
+    @Test
+    void 입력유효성검사_숫자이외문자입력() {
+        try (final MockedStatic<Randoms> mockRandoms = null) {
+            running("13a");
+            verify("[ERROR] 사용자 입력값이 잘못되었습니다. - 1~9값만 입력이 가능합니다.");
         }
     }
 
