@@ -38,6 +38,62 @@ public class ApplicationTest extends NSTest {
         }
     }
 
+    @Test
+    void 볼_1개() {
+        try (final MockedStatic<Randoms> mockRandoms = mockStatic(Randoms.class)) {
+            mockRandoms
+                    .when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
+                    .thenReturn(1, 3, 5);
+            running("364");
+            verify("1볼");
+        }
+    }
+
+    @Test
+    void 볼_2개() {
+        try (final MockedStatic<Randoms> mockRandoms = mockStatic(Randoms.class)) {
+            mockRandoms
+                    .when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
+                    .thenReturn(1, 3, 5);
+            running("354");
+            verify("2볼");
+        }
+    }
+
+    @Test
+    void 스트라이크_1개() {
+        try (final MockedStatic<Randoms> mockRandoms = mockStatic(Randoms.class)) {
+            mockRandoms
+                    .when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
+                    .thenReturn(1, 3, 5);
+            running("167");
+            verify("1스트라이크");
+        }
+    }
+
+    @Test
+    void 스트라이크_2개() {
+        try (final MockedStatic<Randoms> mockRandoms = mockStatic(Randoms.class)) {
+            mockRandoms
+                    .when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
+                    .thenReturn(1, 3, 5);
+            running("137");
+            verify("2스트라이크");
+        }
+    }
+
+    
+    @Test
+    void 스트라이크_1개_볼_2개() {
+        try (final MockedStatic<Randoms> mockRandoms = mockStatic(Randoms.class)) {
+            mockRandoms
+                    .when(() -> Randoms.pickNumberInRange(anyInt(), anyInt()))
+                    .thenReturn(1, 3, 5);
+            running("153");
+            verify("1스트라이크 2볼");
+        }
+    }
+
     @AfterEach
     void tearDown() {
         outputStandard();
