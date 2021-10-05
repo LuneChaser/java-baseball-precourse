@@ -23,6 +23,8 @@ public enum MenuList {
             }
         }
 
-        throw new IllegalArgumentException("[ERROR] 사용자 입력값이 잘못되었습니다. " + NEW_GAME.getMenuName() + ", " + QUIT_GAME.getMenuName() + "값 중 1개를 입력해주세요");
+        System.out.println("[ERROR] 사용자 입력값이 잘못되었습니다. " + NEW_GAME.getMenuName() + ", " + QUIT_GAME.getMenuName() + "값 중 1개를 입력해주세요");
+
+        return NONE;
     }
 }

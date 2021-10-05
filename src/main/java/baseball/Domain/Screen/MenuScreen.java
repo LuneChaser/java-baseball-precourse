@@ -15,11 +15,11 @@ public class MenuScreen extends Screen {
     public void run() {
         render();
 
-        MenuList tempIntroType = getIntroMenuItem();
+        MenuList menuList = getMenuItem();
 
-        if(tempIntroType == MenuList.NEW_GAME) {
+        if(menuList == MenuList.NEW_GAME) {
             changeScreenSequence(ScreenSequence.GAMEPLAY);
-        } else if(tempIntroType == MenuList.QUIT_GAME) {
+        } else if(menuList == MenuList.QUIT_GAME) {
             changeScreenSequence(ScreenSequence.QUIT);
         }
     }
@@ -28,14 +28,7 @@ public class MenuScreen extends Screen {
         System.out.println("게임을 새로 시작하려면 " + MenuList.NEW_GAME.getMenuName() + ", 종료하려면 " + MenuList.QUIT_GAME.getMenuName() + "를 입력하세요.");
     }
 
-    public MenuList getIntroMenuItem() {
-        try {
-            return MenuList.findBy(Console.readLine());
-        }
-        catch(IllegalArgumentException ex) {
-            System.out.println(ex.getMessage());
-        }
-
-        return MenuList.NONE;
+    public MenuList getMenuItem() {
+        return MenuList.findBy(Console.readLine());
     }
 }

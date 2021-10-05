@@ -26,19 +26,17 @@ public class PlayScreen extends Screen {
     }
 
     private boolean play(BallNumber defenderNumber) {
-        try {
-            BallNumber userNumber = userPlayer.generateBallNumber();
+        BallNumber userNumber = userPlayer.generateBallNumber();
 
-            int strikeCount = getStrikeCount(defenderNumber, userNumber);
-            int ballCount = getBallCount(defenderNumber, userNumber);
+        int strikeCount = getStrikeCount(defenderNumber, userNumber);
+        int ballCount = getBallCount(defenderNumber, userNumber);
 
-            if(isComplete(strikeCount, ballCount)) {
-                System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 끝");
-                this.changeScreenSequence(ScreenSequence.MENU);
-                return false;
-            }
-        } catch(IllegalArgumentException ex) {
-            System.out.println(ex.getMessage());
+        if(isComplete(strikeCount, ballCount)) {
+            System.out.println("3개의 숫자를 모두 맞히셨습니다! 게임 끝");
+            
+            this.changeScreenSequence(ScreenSequence.MENU);
+            
+            return false;
         }
 
         return true;
