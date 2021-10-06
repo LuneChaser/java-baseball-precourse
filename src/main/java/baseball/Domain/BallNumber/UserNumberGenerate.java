@@ -39,8 +39,7 @@ public class UserNumberGenerate implements NumberGenerate {
     private boolean isInvalidInputValues(String numbers) {
         boolean isInvalid = false;
 
-        for(char numberChar : numbers.toCharArray())
-        {
+        for(char numberChar : numbers.toCharArray()) {
             isInvalid |= isInvalidInputValue(numberChar);
         }
 
